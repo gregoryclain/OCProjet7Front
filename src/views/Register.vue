@@ -1,6 +1,6 @@
 <template>
   <layout-default>
-    <h1>Home</h1>
+    <h1>Register</h1>
   </layout-default>
 </template>
 
