@@ -13,25 +13,52 @@
         <tr class="row">
           <td class="col-md-9 text-left">
             <p>
-              <a href="#"
-                ><i class="fa fa-sign-out" aria-hidden="true"></i> Le titre du
+              <router-link to="/forum/topic/1">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Le titre du
                 message
-              </a>
-              <br />
-              Cré(é)e par XXXX XXXX, 11/03/2020, 10h25
+              </router-link>
+              <br />Créé par XXXX XXXX, 11/03/2020, 10h25
             </p>
           </td>
           <td class="col-md-3 text-left">
             <p>
-              Par YYYYY, 12/05/2020 13h44
-              <a href="#"
-                ><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i
-              ></a>
+              Dernier message par YYYYY, 12/05/2020 13h44
+              <a href="#">
+                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              </a>
+            </p>
+          </td>
+        </tr>
+        <tr class="row">
+          <td class="col-md-9 text-left">
+            <p>
+              <router-link to="/forum/topic/1">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Le titre du
+                message
+              </router-link>
+              <br />Créé par XXXX XXXX, 11/03/2020, 10h25
+            </p>
+          </td>
+          <td class="col-md-3 text-left">
+            <p>
+              Dernier message par YYYYY, 12/05/2020 13h44
+              <a href="#">
+                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              </a>
             </p>
           </td>
         </tr>
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="goTopage('/forum/topic/new')"
+        >Ecrire une nouvelle publication</button>
+      </div>
+    </div>
   </layout-default>
 </template>
 
@@ -41,6 +68,11 @@ import LayoutDefault from "@/layouts/LayoutDefault.vue";
 export default {
   components: {
     "layout-default": LayoutDefault
+  },
+  methods: {
+    goTopage(page) {
+      this.$router.push(page);
+    }
   }
 };
 </script>
