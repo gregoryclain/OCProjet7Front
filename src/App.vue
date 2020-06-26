@@ -3,7 +3,11 @@
     <router-view />
   </div>
 </template>
-
+<script>
+// import Vue from "vue";
+// import { mapState } from "vuex";
+// import { authenticationService } from "./_services/authentication.service";
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

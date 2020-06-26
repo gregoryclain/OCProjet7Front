@@ -6,5 +6,6 @@ const URL_API = process.env.VUE_APP_URL;
 export const api = {
   // routes user
   USERS_SIGNUP: URL_API + "api/users/signup",
-  USERS_LOGIN: URL_API + "api/users/login"
+  USERS_LOGIN: URL_API + "api/users/login",
+  URL_USER: URL_API + "api/users"
 };

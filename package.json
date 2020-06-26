@@ -9,11 +9,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@brickblock/authorisation-library": "^0.13.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "slugme": "^1.1.1",
     "vue": "^2.6.11",
+    "vue-jwt-decode": "^0.1.0",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.3"
   },
