@@ -7,5 +7,9 @@ export const api = {
   // routes user
   USERS_SIGNUP: URL_API + "api/users/signup",
   USERS_LOGIN: URL_API + "api/users/login",
-  URL_USER: URL_API + "api/users"
+
+  // routes message
+  MESSAGE_CREATE: URL_API + "api/messages/new",
+  MESSAGE_LIST: URL_API + "api/messages/list",
+  MESSAGE_GET_ONE: URL_API + "api/messages/"
 };

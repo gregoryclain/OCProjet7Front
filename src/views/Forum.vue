@@ -10,31 +10,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row">
+        <tr class="row" v-for="message in allMessages" :key="message.id">
           <td class="col-md-9 text-left">
             <p>
-              <router-link to="/forum/topic/1">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Le titre du
-                message
-              </router-link>
-              <br />Créé par XXXX XXXX, 11/03/2020, 10h25
-            </p>
-          </td>
-          <td class="col-md-3 text-left">
-            <p>
-              Dernier message par YYYYY, 12/05/2020 13h44
-              <a href="#">
-                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-              </a>
-            </p>
-          </td>
-        </tr>
-        <tr class="row">
-          <td class="col-md-9 text-left">
-            <p>
-              <router-link to="/forum/topic/1">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Le titre du
-                message
+              <router-link :to="'/forum/topic/' + message.id">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                {{ message.title }}
               </router-link>
               <br />Créé par XXXX XXXX, 11/03/2020, 10h25
             </p>
@@ -56,7 +37,9 @@
           type="button"
           class="btn btn-primary"
           @click="goTopage('/forum/topic/new')"
-        >Ecrire une nouvelle publication</button>
+        >
+          Ecrire une nouvelle publication
+        </button>
       </div>
     </div>
   </layout-default>
@@ -69,9 +52,29 @@ export default {
   components: {
     "layout-default": LayoutDefault
   },
+  mounted: function() {
+    this.getAllMessages();
+  },
+  data() {
+    return {
+      allMessages: []
+    };
+  },
   methods: {
     goTopage(page) {
       this.$router.push(page);
+    },
+    getAllMessages() {
+      this.$axios
+        .get(this.$api.MESSAGE_LIST)
+        .then(response => {
+          this.allMessages = response.data.messages;
+          // console.log("response", response.data.messages);
+        })
+        .catch(error => {
+          console.log("error", error);
+          this.showLoader = false;
+        });
     }
   }
 };

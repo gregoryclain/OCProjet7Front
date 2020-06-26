@@ -43,13 +43,12 @@ export default {
       credentials: {
         email: "gregory.aerialgroup@gmail.com",
         password: "test"
-      },
-      token: null
+      }
     };
   },
   methods: {
     submitForm() {
-      authenticationService.login(this.credentials); // remettre
+      authenticationService.login(this.credentials);
       // this.$axios
       //   .post(this.$api.USERS_LOGIN, this.credentials)
       //   .then(response => {

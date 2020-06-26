@@ -23,6 +23,9 @@ export default new Vuex.Store({
     },
     SET_ROLE_USER(state, userObj) {
       state.adminRole = userObj;
+    },
+    GET_USER_INFOS(state) {
+      return state.authUser;
     }
   },
   actions: {
@@ -35,6 +38,10 @@ export default new Vuex.Store({
     setUserRole: ({ commit }, userObj) => {
       // console.log("state.adminRole", userObj);
       commit("SET_ROLE_USER", userObj);
+    },
+    getUserInfos: ({ commit }, userObj) => {
+      // console.log("state.adminRole", userObj);
+      commit("GET_USER_INFOS");
     }
   },
   modules: {}

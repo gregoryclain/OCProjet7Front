@@ -5,8 +5,21 @@
 </template>
 <script>
 // import Vue from "vue";
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 // import { authenticationService } from "./_services/authentication.service";
+export default {
+  computed: {
+    ...mapState({
+      userStore: state => state.userStore
+    })
+  },
+  created() {
+    // récupération des infos utilisateur admin
+    const userObj = JSON.parse(window.localStorage.getItem("authUser"));
+    this.$store.dispatch("setUserObject", userObj);
+    // authenticationService.checkRoles();
+  }
+};
 </script>
 <style lang="scss">
 #app {
