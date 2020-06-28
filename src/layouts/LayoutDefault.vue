@@ -51,20 +51,21 @@
             >
               <i class="fa fa-user" aria-hidden="true"></i>
             </a>
-            <div
-              class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="navbarDropdown"
-            >
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <router-link class="dropdown-item" to="/login">
                 <i class="fa fa-sign-in" aria-hidden="true"></i> S'authentifier
               </router-link>
               <router-link class="dropdown-item" to="/register">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
-                S'inscrire</router-link
-              >
-              <router-link class="dropdown-item" to="/">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
+                S'inscrire
               </router-link>
+              <!-- <router-link class="dropdown-item" to="/">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
+              </router-link>-->
+
+              <button class="dropdown-item" @click="logout()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
+              </button>
               <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" to="/users">
                 <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
@@ -80,6 +81,7 @@
   </div>
 </template>
 <script>
+import { authenticationService } from "@/_services/authentication.service";
 export default {
   /* eslint-disable semi */
   // eslint-disable-next-line space-before-function-paren
@@ -87,6 +89,12 @@ export default {
     return {
       // selectedSite: false
     };
+  },
+  methods: {
+    logout() {
+      console.log("je dois me delog");
+      authenticationService.logout();
+    }
   }
 };
 </script>

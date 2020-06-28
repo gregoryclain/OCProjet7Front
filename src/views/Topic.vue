@@ -1,56 +1,68 @@
 <template>
   <layout-default>
     <h1>Libellé Topic</h1>
-    <ul class="list-group">
-      <li class="list-group-item" v-if="allMessages[0]">
+    <ul class="list-group" v-if="allMessages.length > 0">
+      <li class="list-group-item" v-for="(msg, index) in allMessages" :key="index">
         <div class="row">
           <div class="col-md-3">
             <span class="badge badge-primary mt-3">Pseudo</span>
           </div>
           <div class="col-md-9">
             <div class="card-body text-primary text-left">
-              <h5 class="card-title">{{ allMessages[0].title }}</h5>
-              <p class="card-text">{{ allMessages[0].message }}</p>
-              <img
-                src="images/c4-cactus.jpg"
-                alt="cactus"
-                class="img-fluid img-thumbnail"
-              />
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-md-3">
-            <span class="badge badge-primary mt-3">Pseudo</span>
-          </div>
-          <div class="col-md-9">
-            <div class="card-body text-primary text-left">
-              <h5 class="card-title">Titre du commentaire 2</h5>
-              <p class="card-text">Texte description commentaire</p>
+              <h5 class="card-title">{{ msg.title }}</h5>
+              <p class="card-text">{{ msg.message }}</p>
+              <img src="images/c4-cactus.jpg" alt="cactus" class="img-fluid img-thumbnail" />
             </div>
           </div>
         </div>
       </li>
     </ul>
+    <hr />
+    <h2>Répondre</h2>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <form>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Titre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              v-model="newMessage.title"
+            />
+          </div>
 
-    <div class="row mt-3"></div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Texte</label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              v-model="newMessage.message"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" />
+                <label class="custom-file-label" for="inputGroupFile01">Veuillez choisir une image</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <div class="row mt-3">
       <div class="col-md-6">
-        <button
-          type="button"
-          class="btn btn-info btn-block"
-          @click="goTopage('/forum')"
-        >
-          Retour
-        </button>
+        <button type="button" class="btn btn-info btn-block" @click="goTopage('/forum')">Retour</button>
       </div>
       <div class="col-md-6">
-        <button type="button" class="btn btn-success btn-block">
-          Répondre
-        </button>
+        <button type="button" class="btn btn-success btn-block" @click="postNewMessage()">Répondre</button>
       </div>
     </div>
   </layout-default>
@@ -58,8 +70,14 @@
 
 <script>
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
+import { mapState } from "vuex";
 
 export default {
+  computed: {
+    ...mapState({
+      userStore: state => state.userStore
+    })
+  },
   mounted: function() {
     this.getOneMessageAndComments();
   },
@@ -68,7 +86,13 @@ export default {
   },
   data() {
     return {
-      allMessages: []
+      allMessages: [],
+      newMessage: {
+        title: "",
+        message: "",
+        userId: null,
+        messageParentId: 0
+      }
     };
   },
   methods: {
@@ -82,12 +106,44 @@ export default {
         .get(this.$api.MESSAGE_GET_ONE + msgId)
         .then(response => {
           this.allMessages.push(response.data.message);
-          console.log("response", response);
+          console.log("INITIAL", response);
+          this.getResponses();
           // ensuite requete pour récupérer les reply en fonction de l'id du premier message
         })
         .catch(error => {
           console.log("error", error);
-          this.showLoader = false;
+        });
+    },
+    postNewMessage() {
+      this.newMessage.userId = this.$store.state.authUser.user.id;
+      this.newMessage.messageParentId = this.allMessages[0].id;
+
+      this.$axios
+        .post(this.$api.MESSAGE_CREATE, this.newMessage)
+        .then(response => {
+          // this.$router.push("/forum");
+          // console.log("response", response);
+          this.newMessage = {
+            title: "",
+            message: ""
+          };
+          this.allMessages.push(response.data.last);
+        })
+        .catch(error => {
+          console.log("error", error);
+        });
+    },
+    getResponses() {
+      let msgId = this.$route.params.id;
+      this.$axios
+        .get(this.$api.MESSAGE_RESPONSES + msgId)
+        .then(response => {
+          this.allMessages.push(response.data.messages);
+          console.log("REPONSES", response.data.messages);
+          // ensuite requete pour récupérer les reply en fonction de l'id du premier message
+        })
+        .catch(error => {
+          console.log("error", error);
         });
     }
   }

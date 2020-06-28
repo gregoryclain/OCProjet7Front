@@ -62,11 +62,6 @@
         >
           Publier
         </button>
-        <!-- 
-          <button type="button" class="btn btn-warning btn-block">
-          Modifier
-        </button> 
-        -->
       </div>
     </div>
   </layout-default>

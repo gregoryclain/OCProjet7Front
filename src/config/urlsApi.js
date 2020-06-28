@@ -11,5 +11,6 @@ export const api = {
   // routes message
   MESSAGE_CREATE: URL_API + "api/messages/new",
   MESSAGE_LIST: URL_API + "api/messages/list",
+  MESSAGE_RESPONSES: URL_API + "api/messages/responses/",
   MESSAGE_GET_ONE: URL_API + "api/messages/"
 };
