@@ -3,7 +3,7 @@
     <h1>Ecrire un nouveau message</h1>
     <div class="row">
       <div class="col-md-12">
-        <form>
+        <form enctype="multipart/form-data">
           <div class="form-group">
             <label for="exampleFormControlInput1">Titre</label>
             <input
@@ -34,10 +34,10 @@
                   type="file"
                   class="custom-file-input"
                   id="inputGroupFile01"
+                  :ref="'file'"
+                  name="file"
                 />
-                <label class="custom-file-label" for="inputGroupFile01"
-                  >Veuillez choisir une image</label
-                >
+                <label class="custom-file-label" for="inputGroupFile01">Veuillez choisir une image</label>
               </div>
             </div>
           </div>
@@ -46,22 +46,10 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <button
-          type="button"
-          class="btn btn-info btn-block"
-          @click="goTopage('/forum')"
-        >
-          Retour
-        </button>
+        <button type="button" class="btn btn-info btn-block" @click="goTopage('/forum')">Retour</button>
       </div>
       <div class="col-md-6">
-        <button
-          type="button"
-          class="btn btn-success btn-block"
-          @click="postMsg()"
-        >
-          Publier
-        </button>
+        <button type="button" class="btn btn-success btn-block" @click="postMsg()">Publier</button>
       </div>
     </div>
   </layout-default>
@@ -87,7 +75,8 @@ export default {
         message: "",
         userId: null,
         messageParentId: 0
-      }
+      },
+      file: ""
     };
   },
   methods: {
@@ -95,9 +84,19 @@ export default {
       this.$router.push(page);
     },
     postMsg() {
+      let formData = new FormData();
+      this.file = this.$refs.file.files[0];
       this.message.userId = this.$store.state.authUser.user.id;
+
+      formData.append("message", JSON.stringify(this.message));
+      formData.append("file", this.file);
+
       this.$axios
-        .post(this.$api.MESSAGE_CREATE, this.message)
+        .post(this.$api.MESSAGE_CREATE, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
         .then(() => {
           this.$router.push("/forum");
           // console.log("response", response);
@@ -106,6 +105,17 @@ export default {
           console.log("error", error);
           this.showLoader = false;
         });
+
+      // this.$axios
+      //   .post(this.$api.MESSAGE_CREATE, this.message)
+      //   .then(() => {
+      //     this.$router.push("/forum");
+      //     // console.log("response", response);
+      //   })
+      //   .catch(error => {
+      //     console.log("error", error);
+      //     this.showLoader = false;
+      //   });
     }
   }
 };

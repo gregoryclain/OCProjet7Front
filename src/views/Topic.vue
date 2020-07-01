@@ -11,7 +11,12 @@
             <div class="card-body text-primary text-left">
               <h5 class="card-title">{{ msg.title }}</h5>
               <p class="card-text">{{ msg.message }}</p>
-              <img src="images/c4-cactus.jpg" alt="cactus" class="img-fluid img-thumbnail" />
+              <img
+                :src="msg.imageUrl"
+                alt="cactus"
+                class="img-fluid img-thumbnail"
+                v-if="msg.imageUrl"
+              />
             </div>
           </div>
         </div>
@@ -138,7 +143,9 @@ export default {
       this.$axios
         .get(this.$api.MESSAGE_RESPONSES + msgId)
         .then(response => {
-          this.allMessages.push(response.data.messages);
+          if (response.data.messages.length > 0) {
+            this.allMessages.push(response.data.messages);
+          }
           console.log("REPONSES", response.data.messages);
           // ensuite requete pour récupérer les reply en fonction de l'id du premier message
         })
