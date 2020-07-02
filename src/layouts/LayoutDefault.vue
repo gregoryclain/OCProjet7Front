@@ -52,10 +52,10 @@
               <i class="fa fa-user" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" to="/login">
+              <router-link class="dropdown-item" to="/login" v-if="!isLoged">
                 <i class="fa fa-sign-in" aria-hidden="true"></i> S'authentifier
               </router-link>
-              <router-link class="dropdown-item" to="/register">
+              <router-link class="dropdown-item" to="/register" v-if="!isLoged">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 S'inscrire
               </router-link>
@@ -63,11 +63,11 @@
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </router-link>-->
 
-              <button class="dropdown-item" @click="logout()">
+              <button class="dropdown-item" @click="logout()" v-if="isLoged">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </button>
               <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" to="/users">
+              <router-link class="dropdown-item" to="/users" v-if="isLoged">
                 <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
               </router-link>
             </div>
@@ -82,11 +82,23 @@
 </template>
 <script>
 import { authenticationService } from "@/_services/authentication.service";
+import { mapState } from "vuex";
 export default {
   /* eslint-disable semi */
   // eslint-disable-next-line space-before-function-paren
+  computed: {
+    ...mapState({
+      userStore: state => state.userStore
+    })
+  },
+  mounted: function() {
+    if (this.$store.state.authUser.user.id) {
+      this.isLoged = true;
+    }
+  },
   data() {
     return {
+      isLoged: false
       // selectedSite: false
     };
   },
