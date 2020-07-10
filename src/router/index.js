@@ -28,6 +28,13 @@ const routes = [
     component: TopicNew
   },
   {
+    path: "/forum/topic/edit/:id",
+    name: "Forum-message-new",
+    meta: { requiresAuth: true },
+    component: TopicNew
+  },
+
+  {
     path: "/forum/topic/:id",
     name: "Forum-message-detail",
     meta: { requiresAuth: true },

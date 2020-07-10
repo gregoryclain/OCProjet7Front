@@ -12,5 +12,6 @@ export const api = {
   MESSAGE_CREATE: URL_API + "api/messages/new",
   MESSAGE_LIST: URL_API + "api/messages/list",
   MESSAGE_RESPONSES: URL_API + "api/messages/responses/",
-  MESSAGE_GET_ONE: URL_API + "api/messages/"
+  MESSAGE_GET_ONE: URL_API + "api/messages/",
+  MESSAGE_EDIT_ONE: URL_API + "api/messages/edit/"
 };

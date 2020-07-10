@@ -30,7 +30,7 @@
           <div class="col-md-12 text-right">
             <button
               v-if="$store.state.authUser.user.Role.title == 'iscom'"
-              @click="goToEditMsg(msg)"
+              @click="goTopage('/forum/topic/edit/'+msg.id)"
               class="btn btn-warning"
             >Editer</button>
           </div>
@@ -124,9 +124,6 @@ export default {
   methods: {
     goTopage(page) {
       this.$router.push(page);
-    },
-    goToEditMsg() {
-      console.log("je dois aller sur la page d'édition");
     },
     getOneMessageAndComments() {
       let msgId = this.$route.params.id;
