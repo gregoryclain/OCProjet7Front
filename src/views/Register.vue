@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       credentials: {
-        email: "",
-        password: ""
+        email: "gregory.aerialgroup@gmail.com",
+        password: "test"
       }
     };
   },

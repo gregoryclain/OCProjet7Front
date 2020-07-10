@@ -1,11 +1,17 @@
 <template>
   <layout-default>
     <h1>Libellé Topic</h1>
+
     <ul class="list-group" v-if="allMessages.length > 0">
-      <li class="list-group-item" v-for="(msg, index) in allMessages" :key="index">
+      <li
+        class="list-group-item"
+        v-for="(msg, index) in allMessages"
+        :key="index"
+        :id="'msg-'+index"
+      >
         <div class="row">
           <div class="col-md-3">
-            <span class="badge badge-primary mt-3">Pseudo</span>
+            <span class="badge badge-primary mt-3">{{ msg.User.email }}</span>
           </div>
           <div class="col-md-9">
             <div class="card-body text-primary text-left">
@@ -13,11 +19,20 @@
               <p class="card-text">{{ msg.message }}</p>
               <img
                 :src="msg.imageUrl"
-                alt="cactus"
+                :alt="msg.title"
                 class="img-fluid img-thumbnail"
                 v-if="msg.imageUrl"
               />
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button
+              v-if="$store.state.authUser.user.Role.title == 'iscom'"
+              @click="goToEditMsg(msg)"
+              class="btn btn-warning"
+            >Editer</button>
           </div>
         </div>
       </li>
@@ -53,7 +68,13 @@
                 <span class="input-group-text">Upload</span>
               </div>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01" />
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="inputGroupFile01"
+                  :ref="'file'"
+                  name="file"
+                />
                 <label class="custom-file-label" for="inputGroupFile01">Veuillez choisir une image</label>
               </div>
             </div>
@@ -104,6 +125,9 @@ export default {
     goTopage(page) {
       this.$router.push(page);
     },
+    goToEditMsg() {
+      console.log("je dois aller sur la page d'édition");
+    },
     getOneMessageAndComments() {
       let msgId = this.$route.params.id;
       console.log("msgId", msgId);
@@ -123,8 +147,18 @@ export default {
       this.newMessage.userId = this.$store.state.authUser.user.id;
       this.newMessage.messageParentId = this.allMessages[0].id;
 
+      let formData = new FormData();
+      this.file = this.$refs.file.files[0];
+      formData.append("message", JSON.stringify(this.newMessage));
+      formData.append("file", this.file);
+
       this.$axios
-        .post(this.$api.MESSAGE_CREATE, this.newMessage)
+        // .post(this.$api.MESSAGE_CREATE, this.newMessage)
+        .post(this.$api.MESSAGE_CREATE, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
         .then(response => {
           // this.$router.push("/forum");
           // console.log("response", response);
@@ -144,7 +178,11 @@ export default {
         .get(this.$api.MESSAGE_RESPONSES + msgId)
         .then(response => {
           if (response.data.messages.length > 0) {
-            this.allMessages.push(response.data.messages);
+            response.data.messages.forEach(resp => {
+              this.allMessages.push(resp);
+            });
+
+            console.log(this.allMessages);
           }
           console.log("REPONSES", response.data.messages);
           // ensuite requete pour récupérer les reply en fonction de l'id du premier message

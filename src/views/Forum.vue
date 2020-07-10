@@ -1,3 +1,4 @@
+
 <template>
   <layout-default>
     <h1>Forum</h1>
@@ -17,15 +18,19 @@
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 {{ message.title }}
               </router-link>
-              <br />Créé par XXXX XXXX, 11/03/2020, 10h25
+              <br />
+              Créé par {{ message.User.email}}, {{ message.createdAt}}
             </p>
           </td>
           <td class="col-md-3 text-left">
             <p>
-              Dernier message par YYYYY, 12/05/2020 13h44
-              <a href="#">
+              Dernier message par YYYYY, {{ message.createdAt}}
+              <router-link to @click.native="goToLastMsg(message.id)">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-              </a>
+              </router-link>
+              <!-- <a href="#">
+                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              </a>-->
             </p>
           </td>
         </tr>
@@ -37,15 +42,15 @@
           type="button"
           class="btn btn-primary"
           @click="goTopage('/forum/topic/new')"
-        >
-          Ecrire une nouvelle publication
-        </button>
+        >Ecrire une nouvelle publication</button>
       </div>
     </div>
   </layout-default>
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
+
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
 
 export default {
@@ -64,12 +69,26 @@ export default {
     goTopage(page) {
       this.$router.push(page);
     },
+    goToLastMsg(msgId) {
+      console.log("test", msgId);
+      this.$axios
+        .get(this.$api.MESSAGE_RESPONSES + msgId)
+        .then(response => {
+          // console.log(response.data.messages.length);
+          let anchorId = response.data.messages.length;
+          this.$router.push("/forum/topic/" + msgId + "#msg-" + anchorId);
+        })
+        .catch(error => {
+          console.log("error", error);
+        });
+    },
     getAllMessages() {
+      console.log("get all message");
       this.$axios
         .get(this.$api.MESSAGE_LIST)
         .then(response => {
-          this.allMessages = response.data.messages;
-          // console.log("response", response.data.messages);
+          this.allMessages = response.data;
+          console.log("response", response.data);
         })
         .catch(error => {
           console.log("error", error);

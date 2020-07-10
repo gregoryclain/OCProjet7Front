@@ -70,6 +70,9 @@
               <router-link class="dropdown-item" to="/users" v-if="isLoged">
                 <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
               </router-link>
+              <router-link class="dropdown-item" to="/users" v-if="isLoged">
+                <i class="fa fa-comments" aria-hidden="true"></i> Modération
+              </router-link>
             </div>
           </li>
         </ul>
@@ -92,7 +95,7 @@ export default {
     })
   },
   mounted: function() {
-    if (this.$store.state.authUser.user.id) {
+    if (this.$store.state.authUser && this.$store.state.authUser.user.id) {
       this.isLoged = true;
     }
   },
