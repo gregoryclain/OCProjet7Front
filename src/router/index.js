@@ -6,6 +6,7 @@ import Topic from "../views/Topic.vue";
 import TopicNew from "../views/TopicNew.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Profile from "../views/Profile.vue";
 
 // Vue.use(VueRouter);
 
@@ -50,6 +51,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile
   }
 ];
 

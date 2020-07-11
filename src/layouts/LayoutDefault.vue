@@ -65,8 +65,8 @@
               </router-link>
 
               <!-- Si logué -->
-              <router-link class="dropdown-item" to="/dashboard" v-if="isLoged">
-                <i class="fa fa-comments" aria-hidden="true"></i> Mon compte
+              <router-link class="dropdown-item" to="/profile" v-if="isLoged">
+                <i class="fa fa-user" aria-hidden="true"></i> Mon compte
               </router-link>
 
               <button class="dropdown-item" @click="logout()" v-if="isLoged">
