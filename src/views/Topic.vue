@@ -32,7 +32,16 @@
               v-if="$store.state.authUser.user.Role.title == 'iscom'"
               @click="goTopage('/forum/topic/edit/'+msg.id)"
               class="btn btn-warning"
-            >Editer</button>
+            >
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editer
+            </button>
+            <button
+              v-if="$store.state.authUser.user.Role.title == 'iscom'"
+              @click="deletePost(msg.id)"
+              class="btn btn-danger ml-2"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+            </button>
           </div>
         </div>
       </li>
@@ -122,6 +131,16 @@ export default {
     };
   },
   methods: {
+    deletePost(msgId) {
+      this.$axios
+        .delete(this.$api.MESSAGE_DELETE_ONE + msgId)
+        .then(() => {
+          this.$router.push("/forum");
+        })
+        .catch(error => {
+          console.log("error", error);
+        });
+    },
     goTopage(page) {
       this.$router.push(page);
     },

@@ -13,5 +13,6 @@ export const api = {
   MESSAGE_LIST: URL_API + "api/messages/list",
   MESSAGE_RESPONSES: URL_API + "api/messages/responses/",
   MESSAGE_GET_ONE: URL_API + "api/messages/",
-  MESSAGE_EDIT_ONE: URL_API + "api/messages/edit/"
+  MESSAGE_EDIT_ONE: URL_API + "api/messages/edit/",
+  MESSAGE_DELETE_ONE: URL_API + "api/messages/delete/"
 };
