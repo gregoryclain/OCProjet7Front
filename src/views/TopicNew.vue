@@ -56,7 +56,13 @@
           class="btn btn-success btn-block"
           @click="postMsg()"
         >Publier</button>
-        <button v-else type="button" class="btn btn-success btn-block" @click="postMsg()">Modifier</button>
+
+        <button
+          v-if="isEdit"
+          type="button"
+          class="btn btn-success btn-block"
+          @click="postMsg()"
+        >Modifier</button>
       </div>
     </div>
   </layout-default>
@@ -92,7 +98,6 @@ export default {
   },
   methods: {
     checkIfEdit() {
-      this.isEdit = true;
       let editId = this.$route.params.id;
       this.$axios
         .get(this.$api.MESSAGE_GET_ONE + editId)
@@ -100,6 +105,7 @@ export default {
           // this.$router.push("/forum");
           console.log("response edit", response.data.message);
           if (response.data.message) {
+            this.isEdit = true;
             this.message = response.data.message;
           }
         })

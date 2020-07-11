@@ -158,7 +158,7 @@ export default {
         })
         .then(response => {
           // this.$router.push("/forum");
-          // console.log("response", response);
+          console.log("response MSG", response.data.last);
           this.newMessage = {
             title: "",
             message: ""
