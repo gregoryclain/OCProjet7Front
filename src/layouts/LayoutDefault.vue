@@ -1,9 +1,8 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <!-- <a class="navbar-brand" href="#">Home</a> -->
       <router-link class="navbar-brand" to="/">
-        <i class="fa fa fa-home" aria-hidden="true"></i> Accueil
+        <img src="/images/icon.png" alt="Accueil Groupomania" height="50" />
         <span class="sr-only">(current)</span>
       </router-link>
       <button
@@ -51,25 +50,31 @@
             >
               <i class="fa fa-user" aria-hidden="true"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdown"
+            >
+              <!-- Accès à tous-->
               <router-link class="dropdown-item" to="/login" v-if="!isLoged">
                 <i class="fa fa-sign-in" aria-hidden="true"></i> S'authentifier
               </router-link>
+
               <router-link class="dropdown-item" to="/register" v-if="!isLoged">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 S'inscrire
               </router-link>
-              <!-- <router-link class="dropdown-item" to="/">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
-              </router-link>-->
+
+              <!-- Si logué -->
+              <router-link class="dropdown-item" to="/dashboard" v-if="isLoged">
+                <i class="fa fa-comments" aria-hidden="true"></i> Mon compte
+              </router-link>
 
               <button class="dropdown-item" @click="logout()" v-if="isLoged">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </button>
               <div class="dropdown-divider"></div>
-              <!-- <router-link class="dropdown-item" to="/users" v-if="isLoged">
-                <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
-              </router-link>-->
+
+              <!-- Si commercial-->
               <router-link class="dropdown-item" to="/users" v-if="isLoged">
                 <i class="fa fa-comments" aria-hidden="true"></i> Modération
               </router-link>

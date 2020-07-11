@@ -1,6 +1,6 @@
 <template>
   <layout-default>
-    <h1>Home</h1>
+    <img src="images/icon-left-font.png" alt="Accueil Groupomania" />
   </layout-default>
 </template>
 
