@@ -1,4 +1,3 @@
-
 <template>
   <layout-default>
     <h1>Forum</h1>
@@ -19,12 +18,13 @@
                 {{ message.title }}
               </router-link>
               <br />
-              Créé par {{ message.User.email}}, {{ message.createdAt}}
+              Créé par {{ message.User.email }},
+              {{ message.createdAt | formatDate }}
             </p>
           </td>
           <td class="col-md-3 text-left">
             <p>
-              Dernier message par YYYYY, {{ message.createdAt}}
+              Dernier message par YYYYY, {{ message.createdAt | formatDate }}
               <router-link to @click.native="goToLastMsg(message.id)">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
               </router-link>
@@ -42,7 +42,9 @@
           type="button"
           class="btn btn-primary"
           @click="goTopage('/forum/topic/new')"
-        >Ecrire une nouvelle publication</button>
+        >
+          Ecrire une nouvelle publication
+        </button>
       </div>
     </div>
   </layout-default>
