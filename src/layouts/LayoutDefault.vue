@@ -68,16 +68,10 @@
               <router-link class="dropdown-item" to="/profile" v-if="isLoged">
                 <i class="fa fa-user" aria-hidden="true"></i> Mon compte
               </router-link>
-
+              <div class="dropdown-divider"></div>
               <button class="dropdown-item" @click="logout()" v-if="isLoged">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </button>
-              <div class="dropdown-divider"></div>
-
-              <!-- Si commercial-->
-              <router-link class="dropdown-item" to="/users" v-if="isLoged">
-                <i class="fa fa-comments" aria-hidden="true"></i> Modération
-              </router-link>
             </div>
           </li>
         </ul>
