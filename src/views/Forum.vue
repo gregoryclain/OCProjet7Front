@@ -10,7 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" v-for="message in allMessages" :key="message.id">
+        <tr
+          class="row"
+          v-for="(message, index) in allMessages"
+          :key="message.id"
+        >
           <td class="col-md-9 text-left">
             <p>
               <router-link :to="'/forum/topic/' + message.id">
@@ -23,15 +27,14 @@
             </p>
           </td>
           <td class="col-md-3 text-left">
-            <p>
-              Dernier message par YYYYY, {{ message.createdAt | formatDate }}
+            <p v-if="allLastMessages[index]">
+              Dernier message par {{ allLastMessages[index].User.email }},
+              {{ allLastMessages[index].createdAt | formatDate }}
               <router-link to @click.native="goToLastMsg(message.id)">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
               </router-link>
-              <!-- <a href="#">
-                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-              </a>-->
             </p>
+            <p v-else>Aucune réponse</p>
           </td>
         </tr>
       </tbody>
@@ -64,7 +67,8 @@ export default {
   },
   data() {
     return {
-      allMessages: []
+      allMessages: [],
+      allLastMessages: []
     };
   },
   methods: {
@@ -84,6 +88,22 @@ export default {
           console.log("error", error);
         });
     },
+    getAllLastMessages(MsgId) {
+      this.allMessages.forEach(msg => {
+        this.$axios
+          .get(this.$api.MESSAGE_GET_LAST + msg.id)
+          .then(response => {
+            // this.allMessages = response.data;
+            this.allLastMessages.push(response.data.last[0]);
+            console.log("response last", response.data.last[0]);
+          })
+          .catch(error => {
+            console.log("error", error);
+            this.showLoader = false;
+          });
+      });
+      console.log("allLastMessages", this.allLastMessages);
+    },
     getAllMessages() {
       console.log("get all message");
       this.$axios
@@ -91,6 +111,7 @@ export default {
         .then(response => {
           this.allMessages = response.data;
           console.log("response", response.data);
+          this.getAllLastMessages();
         })
         .catch(error => {
           console.log("error", error);

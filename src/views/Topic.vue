@@ -7,7 +7,7 @@
         class="list-group-item"
         v-for="(msg, index) in allMessages"
         :key="index"
-        :id="'msg-'+index"
+        :id="'msg-' + index"
       >
         <div class="row">
           <div class="col-md-3">
@@ -30,7 +30,7 @@
           <div class="col-md-12 text-right">
             <button
               v-if="$store.state.authUser.user.Role.title == 'iscom'"
-              @click="goTopage('/forum/topic/edit/'+msg.id)"
+              @click="goTopage('/forum/topic/edit/' + msg.id)"
               class="btn btn-warning"
             >
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editer
@@ -84,7 +84,9 @@
                   :ref="'file'"
                   name="file"
                 />
-                <label class="custom-file-label" for="inputGroupFile01">Veuillez choisir une image</label>
+                <label class="custom-file-label" for="inputGroupFile01"
+                  >Veuillez choisir une image</label
+                >
               </div>
             </div>
           </div>
@@ -94,10 +96,22 @@
 
     <div class="row mt-3">
       <div class="col-md-6">
-        <button type="button" class="btn btn-info btn-block" @click="goTopage('/forum')">Retour</button>
+        <button
+          type="button"
+          class="btn btn-info btn-block"
+          @click="goTopage('/forum')"
+        >
+          Retour
+        </button>
       </div>
       <div class="col-md-6">
-        <button type="button" class="btn btn-success btn-block" @click="postNewMessage()">Répondre</button>
+        <button
+          type="button"
+          class="btn btn-success btn-block"
+          @click="postNewMessage()"
+        >
+          Répondre
+        </button>
       </div>
     </div>
   </layout-default>
