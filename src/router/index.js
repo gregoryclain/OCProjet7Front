@@ -7,6 +7,7 @@ import TopicNew from "../views/TopicNew.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Profile from "../views/Profile.vue";
+import Users from "../views/Users.vue";
 
 // Vue.use(VueRouter);
 
@@ -56,6 +57,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: Users
   }
 ];
 

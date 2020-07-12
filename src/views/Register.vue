@@ -3,6 +3,17 @@
     <h1>Register</h1>
     <form>
       <div class="form-group">
+        <label for="exampleInputPseudo1">Pseudo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputPseudo1"
+          placeholder="Votre nom"
+          v-model="credentials.name"
+        />
+      </div>
+
+      <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input
           type="email"
@@ -24,7 +35,9 @@
         />
       </div>
 
-      <button type="button" class="btn btn-primary" @click="submitForm()">Submit</button>
+      <button type="button" class="btn btn-primary" @click="submitForm()">
+        Submit
+      </button>
     </form>
   </layout-default>
 </template>
@@ -40,7 +53,8 @@ export default {
     return {
       credentials: {
         email: "gregory.aerialgroup@gmail.com",
-        password: "test"
+        password: "test",
+        name: "Grégory"
       }
     };
   },

@@ -2,7 +2,7 @@
   <layout-default>
     <h1>Forum</h1>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         <table class="table table-hover">
           <thead>
             <tr class="row">
@@ -23,13 +23,13 @@
                     {{ message.title }}
                   </router-link>
                   <br />
-                  Créé par {{ message.User.email }},
+                  Créé par {{ message.User.name }},
                   {{ message.createdAt | formatDate }}
                 </p>
               </td>
               <td class="col-md-3 text-left">
                 <p v-if="allLastMessages[index]">
-                  Dernier message par {{ allLastMessages[index].User.email }},
+                  Dernier message par {{ allLastMessages[index].User.name }},
                   {{ allLastMessages[index].createdAt | formatDate }}
                   <router-link to @click.native="goToLastMsg(message.id)">
                     <i
@@ -44,7 +44,7 @@
           </tbody>
         </table>
       </div>
-      <div class="col-md-3" v-if="currentRole === 'iscom'">
+      <!-- <div class="col-md-3" v-if="currentRole === 'iscom'">
         <div class="row">
           <div class="col-md-12">
             <ul class="list-group">
@@ -61,7 +61,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="row">
@@ -94,10 +94,8 @@ export default {
   },
   mounted: function() {
     this.getAllMessages();
-    // todo:conditional si commercial
-    this.getAllMessagesForCommercial();
-    console.log("user", this.$store.state.authUser.user.Role.title);
     this.currentRole = this.$store.state.authUser.user.Role.title;
+    // this.getAllMessagesForCommercial();
   },
   data() {
     return {

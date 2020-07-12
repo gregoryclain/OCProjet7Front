@@ -25,12 +25,6 @@
               <span class="sr-only">(current)</span>
             </router-link>
           </li>
-
-          <!-- 
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> 
-          -->
         </ul>
       </div>
 
@@ -68,10 +62,20 @@
               <router-link class="dropdown-item" to="/profile" v-if="isLoged">
                 <i class="fa fa-user" aria-hidden="true"></i> Mon compte
               </router-link>
-              <div class="dropdown-divider"></div>
+
               <button class="dropdown-item" @click="logout()" v-if="isLoged">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </button>
+              <div class="dropdown-divider"></div>
+
+              <!-- Si commercial-->
+              <router-link
+                class="dropdown-item"
+                to="/users"
+                v-if="isLoged && currentRole === 'iscom'"
+              >
+                <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
+              </router-link>
             </div>
           </li>
         </ul>
@@ -96,12 +100,13 @@ export default {
   mounted: function() {
     if (this.$store.state.authUser && this.$store.state.authUser.user.id) {
       this.isLoged = true;
+      this.currentRole = this.$store.state.authUser.user.Role.title;
     }
   },
   data() {
     return {
-      isLoged: false
-      // selectedSite: false
+      isLoged: false,
+      currentRole: "user"
     };
   },
   methods: {
@@ -112,3 +117,8 @@ export default {
   }
 };
 </script>
+<style>
+.container {
+  margin-bottom: 20px;
+}
+</style>

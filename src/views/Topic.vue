@@ -11,7 +11,7 @@
       >
         <div class="row">
           <div class="col-md-3">
-            <span class="badge badge-primary mt-3">{{ msg.User.email }}</span>
+            <span class="badge badge-primary mt-3">{{ msg.User.name }}</span>
           </div>
           <div class="col-md-9">
             <div class="card-body text-primary text-left">
