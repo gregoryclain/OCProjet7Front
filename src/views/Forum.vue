@@ -83,6 +83,7 @@
 
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
 import { mapState } from "vuex";
+import { getHeader } from "@/config";
 export default {
   components: {
     "layout-default": LayoutDefault

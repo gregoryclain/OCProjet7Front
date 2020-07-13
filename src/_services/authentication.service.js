@@ -45,7 +45,6 @@ function login(credentials) {
     .post(api.USERS_LOGIN, payLoadLogin)
     .then(response => {
       authUser = response.data;
-      console.log("authUser", authUser);
       window.localStorage.setItem("authUser", JSON.stringify(authUser));
       store.dispatch("setUserRole", response.data.user.roles);
       store.dispatch("setUserObject", authUser);
@@ -56,26 +55,26 @@ function login(credentials) {
     });
 }
 
-function checkRoles() {
-  if (window.localStorage.getItem("authUser")) {
-    let userObj = JSON.parse(window.localStorage.getItem("authUser"));
-    // console.log("userObj", userObj);
-    axios
-      .get(api.URL_USER, { headers: getHeader() })
-      .then(response => {
-        store.dispatch("setUserRole", response.data.user.roles);
-      })
-      .catch(error => {
-        console.log("error");
-        logout();
-      });
-  }
-}
+// function checkRoles() {
+//   if (window.localStorage.getItem("authUser")) {
+//     let userObj = JSON.parse(window.localStorage.getItem("authUser"));
+//     // console.log("userObj", userObj);
+//     axios
+//       .get(api.URL_USER, { headers: getHeader() })
+//       .then(response => {
+//         store.dispatch("setUserRole", response.data.user.roles);
+//       })
+//       .catch(error => {
+//         console.log("error");
+//         logout();
+//       });
+//   }
+// }
 
 export const authenticationService = {
   logout,
-  login,
-  checkRoles
+  login
+  // checkRoles
   // currentUser: currentUserSubject.asObservable(),
   // get currentUserValue () {
   //   return currentUserSubject.value;

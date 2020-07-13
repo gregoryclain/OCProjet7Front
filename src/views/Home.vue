@@ -1,6 +1,10 @@
 <template>
   <layout-default>
-    <img src="images/icon-left-font.png" alt="Accueil Groupomania" />
+    <img
+      src="images/icon-left-font.png"
+      alt="Accueil Groupomania"
+      class="img-fluid"
+    />
   </layout-default>
 </template>
 

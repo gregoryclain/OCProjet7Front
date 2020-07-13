@@ -1,6 +1,6 @@
 <template>
   <layout-default>
-    <h1>Libellé Topic</h1>
+    <h1>Message</h1>
 
     <ul class="list-group" v-if="allMessages.length > 0">
       <li
