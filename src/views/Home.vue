@@ -4,6 +4,7 @@
       src="images/icon-left-font.png"
       alt="Accueil Groupomania"
       class="img-fluid"
+      aria-label="Image d'Accueil Groupomania"
     />
   </layout-default>
 </template>
