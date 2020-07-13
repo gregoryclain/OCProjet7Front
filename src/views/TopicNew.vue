@@ -2,6 +2,9 @@
   <layout-default>
     <h1 v-if="!isEdit">Ecrire un nouveau message</h1>
     <h1 v-else>Edition d'un message</h1>
+    <div class="alert alert-danger" v-if="isError">
+      <strong>Erreur !</strong> {{ msgError }}
+    </div>
     <div class="row">
       <div class="col-md-12">
         <form enctype="multipart/form-data">
@@ -38,7 +41,9 @@
                   :ref="'file'"
                   name="file"
                 />
-                <label class="custom-file-label" for="inputGroupFile01">Veuillez choisir une image</label>
+                <label class="custom-file-label" for="inputGroupFile01"
+                  >Veuillez choisir une image</label
+                >
               </div>
             </div>
           </div>
@@ -47,7 +52,13 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <button type="button" class="btn btn-info btn-block" @click="goTopage('/forum')">Retour</button>
+        <button
+          type="button"
+          class="btn btn-info btn-block"
+          @click="goTopage('/forum')"
+        >
+          Retour
+        </button>
       </div>
       <div class="col-md-6">
         <button
@@ -55,14 +66,18 @@
           type="button"
           class="btn btn-success btn-block"
           @click="postMsg()"
-        >Publier</button>
+        >
+          Publier
+        </button>
 
         <button
           v-if="isEdit"
           type="button"
           class="btn btn-success btn-block"
           @click="postMsg()"
-        >Modifier</button>
+        >
+          Modifier
+        </button>
       </div>
     </div>
   </layout-default>
@@ -86,6 +101,8 @@ export default {
   },
   data() {
     return {
+      msgError: "",
+      isError: false,
       isEdit: false,
       message: {
         title: "",
@@ -118,13 +135,21 @@ export default {
       this.$router.push(page);
     },
     postMsg() {
+      this.isError = false;
+      this.msgError = "";
+
       let formData = new FormData();
       this.file = this.$refs.file.files[0];
       if (!this.isEdit) {
         this.message.userId = this.$store.state.authUser.user.id;
       }
 
-      console.log("MESSAGE", this.message);
+      if (this.message.title === "" || this.message.message === "") {
+        this.isError = true;
+        this.msgError = "Le titre ou le texte est vide";
+        return false;
+      }
+
       formData.append("message", JSON.stringify(this.message));
       formData.append("file", this.file);
 

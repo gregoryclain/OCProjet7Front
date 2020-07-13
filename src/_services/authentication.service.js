@@ -51,6 +51,7 @@ function login(credentials) {
       router.push("/forum");
     })
     .catch(error => {
+      alert(error);
       console.log("error = ", error);
     });
 }
