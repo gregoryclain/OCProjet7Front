@@ -7,6 +7,8 @@ import axios from "axios";
 import { api } from "./config/urlsApi";
 import VueJwtDecode from "vue-jwt-decode";
 import moment from "moment";
+import Vuelidate from "vuelidate";
+
 // const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
 // if (store.state.authUser) {
 //   const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
@@ -17,6 +19,7 @@ import moment from "moment";
 Vue.prototype.$api = api;
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
+Vue.use(Vuelidate);
 Vue.use(VueJwtDecode);
 Vue.use(Vuex);
 

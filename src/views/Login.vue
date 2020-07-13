@@ -34,6 +34,7 @@
 <script>
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
 import { authenticationService } from "@/_services/authentication.service";
+// const { required, minLength } = require('vuelidate/lib/validators')
 export default {
   components: {
     "layout-default": LayoutDefault
@@ -46,6 +47,12 @@ export default {
       }
     };
   },
+  // validations: {
+  //   credentials.email: {
+  //     required,
+  //     minLength: minLength(4)
+  //   }
+  // },
   methods: {
     submitForm() {
       authenticationService.login(this.credentials);
