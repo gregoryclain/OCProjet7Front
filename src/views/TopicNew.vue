@@ -9,22 +9,24 @@
       <div class="col-md-12">
         <form enctype="multipart/form-data">
           <div class="form-group">
-            <label for="exampleFormControlInput1">Titre</label>
+            <label for="titre">Titre</label>
             <input
               type="text"
               class="form-control"
-              id="exampleFormControlInput1"
+              id="titre"
               v-model="message.title"
+              aria-label="Titre du message"
             />
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea1">Texte</label>
+            <label for="texte">Texte</label>
             <textarea
               class="form-control"
-              id="exampleFormControlTextarea1"
+              id="texte"
               rows="3"
               v-model="message.message"
+              aria-label="Texte du messagee"
             ></textarea>
           </div>
 
@@ -37,11 +39,12 @@
                 <input
                   type="file"
                   class="custom-file-input"
-                  id="inputGroupFile01"
+                  id="media"
                   :ref="'file'"
                   name="file"
+                  aria-label="Media aà uploader"
                 />
-                <label class="custom-file-label" for="inputGroupFile01"
+                <label class="custom-file-label" for="media"
                   >Veuillez choisir une image</label
                 >
               </div>
@@ -56,6 +59,7 @@
           type="button"
           class="btn btn-info btn-block"
           @click="goTopage('/forum')"
+          title="Retour a l'accueil du forum"
         >
           Retour
         </button>
@@ -66,6 +70,7 @@
           type="button"
           class="btn btn-success btn-block"
           @click="postMsg()"
+          title="Publier"
         >
           Publier
         </button>
@@ -75,6 +80,7 @@
           type="button"
           class="btn btn-success btn-block"
           @click="postMsg()"
+          title="Modifier"
         >
           Modifier
         </button>

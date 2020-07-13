@@ -70,6 +70,7 @@
           type="button"
           class="btn btn-primary"
           @click="goTopage('/forum/topic/new')"
+          title="Ecrire une nouvelle publication"
         >
           Ecrire une nouvelle publication
         </button>

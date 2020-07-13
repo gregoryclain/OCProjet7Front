@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" to="/" title="accueil">
         <img src="/images/icon.png" alt="Accueil Groupomania" height="50" />
         <span class="sr-only">(current)</span>
       </router-link>
@@ -20,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <router-link class="nav-link" to="/forum">
+            <router-link class="nav-link" to="/forum" title="Acces au forum">
               <i class="fa fa-comments" aria-hidden="true"></i> Forum
               <span class="sr-only">(current)</span>
             </router-link>
@@ -49,21 +49,41 @@
               aria-labelledby="navbarDropdown"
             >
               <!-- Accès à tous-->
-              <router-link class="dropdown-item" to="/login" v-if="!isLoged">
+              <router-link
+                class="dropdown-item"
+                to="/login"
+                v-if="!isLoged"
+                title="S'authentifier"
+              >
                 <i class="fa fa-sign-in" aria-hidden="true"></i> S'authentifier
               </router-link>
 
-              <router-link class="dropdown-item" to="/register" v-if="!isLoged">
+              <router-link
+                class="dropdown-item"
+                to="/register"
+                v-if="!isLoged"
+                title="S'inscrire"
+              >
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 S'inscrire
               </router-link>
 
               <!-- Si logué -->
-              <router-link class="dropdown-item" to="/profile" v-if="isLoged">
+              <router-link
+                class="dropdown-item"
+                to="/profile"
+                v-if="isLoged"
+                title="Mon compte"
+              >
                 <i class="fa fa-user" aria-hidden="true"></i> Mon compte
               </router-link>
 
-              <button class="dropdown-item" @click="logout()" v-if="isLoged">
+              <button
+                class="dropdown-item"
+                @click="logout()"
+                v-if="isLoged"
+                title="Déconnexion"
+              >
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
               </button>
               <div class="dropdown-divider"></div>
@@ -73,6 +93,7 @@
                 class="dropdown-item"
                 to="/users"
                 v-if="isLoged && currentRole === 'iscom'"
+                title="Gestion des utilisateurs"
               >
                 <i class="fa fa-users" aria-hidden="true"></i> Utilisateurs
               </router-link>

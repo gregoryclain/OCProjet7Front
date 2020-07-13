@@ -9,13 +9,15 @@
         <div class="form__error" v-if="!$v.credentials.name.required">
           *This field is required.
         </div>
-        <label for="exampleInputPseudo1">Pseudo</label>
+        <label for="Pseudo">Pseudo</label>
         <input
           type="text"
           class="form-control"
-          id="exampleInputPseudo1"
+          id="Pseudo"
           placeholder="Votre nom"
           v-model="credentials.name"
+          title="Entrer votre nom"
+          aria-label="Entrer votre nom"
         />
       </div>
 
@@ -23,27 +25,31 @@
         <div class="form__error" v-if="!$v.credentials.email.required">
           *This field is required.
         </div>
-        <label for="exampleInputEmail1">Email address</label>
+        <label for="Email">Email address</label>
         <input
           type="email"
           class="form-control"
-          id="exampleInputEmail1"
+          id="Email"
           aria-describedby="emailHelp"
           placeholder="Enter email"
           v-model="credentials.email"
+          title="Entrer un email"
+          aria-label="Entrer un email"
         />
       </div>
       <div class="form-group">
         <div class="form__error" v-if="!$v.credentials.password.required">
           *This field is required.
         </div>
-        <label for="exampleInputPassword1">Password</label>
+        <label for="Password">Password</label>
         <input
           type="password"
           class="form-control"
-          id="exampleInputPassword1"
+          id="Password"
           placeholder="Password"
           v-model="credentials.password"
+          title="Entrer un password"
+          aria-label="Entrer un password"
         />
       </div>
 

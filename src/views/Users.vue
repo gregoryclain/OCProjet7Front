@@ -15,6 +15,7 @@
                 <button
                   class="btn btn-info mb-1"
                   @click="fetchUserMsg(user.id, index)"
+                  :title="'Voir les message de ' + user.name"
                 >
                   Voir ses messages
                 </button>

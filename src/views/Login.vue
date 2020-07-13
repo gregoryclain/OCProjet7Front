@@ -11,6 +11,8 @@
           aria-describedby="emailHelp"
           placeholder="Enter email"
           v-model="credentials.email"
+          title="Entrer votre email"
+          aria-label="Entrer votre email"
         />
       </div>
       <div class="form-group">
@@ -21,6 +23,8 @@
           id="exampleInputPassword1"
           placeholder="Password"
           v-model="credentials.password"
+          title="Entrer votre password"
+          aria-label="Entrer votre password"
         />
       </div>
 

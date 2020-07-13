@@ -22,6 +22,7 @@
                 :alt="msg.title"
                 class="img-fluid img-thumbnail"
                 v-if="msg.imageUrl"
+                :aria-label="'Photo du message : ' + msg.title"
               />
             </div>
           </div>
@@ -32,6 +33,8 @@
               v-if="$store.state.authUser.user.Role.title == 'iscom'"
               @click="goTopage('/forum/topic/edit/' + msg.id)"
               class="btn btn-warning"
+              title="Editer le message"
+              aria-label="Editer le message"
             >
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editer
             </button>
@@ -39,6 +42,8 @@
               v-if="$store.state.authUser.user.Role.title == 'iscom'"
               @click="deletePost(msg.id)"
               class="btn btn-danger ml-2"
+              title="Supprimer le message"
+              aria-label="Supprimer le message"
             >
               <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
             </button>
@@ -52,22 +57,24 @@
       <div class="col-md-12">
         <form>
           <div class="form-group">
-            <label for="exampleFormControlInput1">Titre</label>
+            <label for="titre">Titre</label>
             <input
               type="text"
               class="form-control"
-              id="exampleFormControlInput1"
+              id="titre"
               v-model="newMessage.title"
+              aria-label="Titre de votre réponse"
             />
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea1">Texte</label>
+            <label for="texte">Texte</label>
             <textarea
               class="form-control"
-              id="exampleFormControlTextarea1"
+              id="texte"
               rows="3"
               v-model="newMessage.message"
+              aria-label="Votre message"
             ></textarea>
           </div>
 
@@ -100,6 +107,8 @@
           type="button"
           class="btn btn-info btn-block"
           @click="goTopage('/forum')"
+          title="Retour à l'accueil du forum"
+          aria-label="Retour à l'accueil du forum"
         >
           Retour
         </button>
@@ -109,6 +118,8 @@
           type="button"
           class="btn btn-success btn-block"
           @click="postNewMessage()"
+          title="Poster la réponse"
+          aria-label="Poster la réponse"
         >
           Répondre
         </button>
