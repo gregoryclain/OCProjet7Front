@@ -93,9 +93,23 @@ export default {
       userStore: state => state.userStore
     })
   },
+  created: function() {
+    const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
+    this.$axios.defaults.headers.common["Authorization"] =
+      "Bearer " + tokenData.token;
+    this.$axios.defaults.headers.post["Content-Type"] = "application/json";
+  },
   mounted: function() {
     this.getAllMessages();
-    this.currentRole = this.$store.state.authUser.user.Role.title;
+
+    if (this.$store.state.authUser && this.$store.state.authUser.user.id) {
+      this.isLoged = true;
+      this.currentRole = this.$store.state.authUser.user.Role.title;
+    } else {
+      this.$router.push("/login");
+    }
+
+    // this.currentRole = this.$store.state.authUser.user.Role.title;
     // this.getAllMessagesForCommercial();
   },
   data() {

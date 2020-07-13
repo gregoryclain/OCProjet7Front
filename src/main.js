@@ -7,9 +7,13 @@ import axios from "axios";
 import { api } from "./config/urlsApi";
 import VueJwtDecode from "vue-jwt-decode";
 import moment from "moment";
-const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
-axios.defaults.headers.common["Authorization"] = "Bearer " + tokenData.token;
-axios.defaults.headers.post["Content-Type"] = "application/json";
+// const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
+// if (store.state.authUser) {
+//   const tokenData = JSON.parse(window.localStorage.getItem("authUser"));
+//   axios.defaults.headers.common["Authorization"] = "Bearer " + tokenData.token;
+//   axios.defaults.headers.post["Content-Type"] = "application/json";
+// }
+
 Vue.prototype.$api = api;
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
